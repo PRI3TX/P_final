@@ -5,12 +5,11 @@ const db_1 = require("../../db");
 const create = (asignatura, callback) => {
     const queryString = 'INSERT INTO asignaturas (id_a, nom_a, int_h, creditos) VALUES (?, ?, ?, ?)';
     db_1.db.query(queryString, [asignatura.id_a, asignatura.nom_a, asignatura.int_h, asignatura.creditos], (err) => {
-        if (err) {
-            callback(err);
-        }
+        if (err)
+            return callback(err);
         //const insertId = (<OkPacket>result).insertId;
         //callback(null, insertId);
-        callback(null, {
+        return callback(null, {
             statusCode: 201,
             message: 'Asignatura creada exitosamente',
             data: {
@@ -28,7 +27,7 @@ const getAll = (callback) => {
             return;
         }
         const asignaturas = result;
-        callback(null, {
+        return callback(null, {
             statusCode: 200,
             message: 'Asignaturas obtenidas exitosamente',
             data: asignaturas
@@ -63,10 +62,9 @@ exports.getOne = getOne;
 const update = (asignatura, callback) => {
     const queryString = 'UPDATE asignaturas SET nom_a = ?, int_h = ?, creditos = ? WHERE id_a = ?';
     db_1.db.query(queryString, [asignatura.nom_a, asignatura.int_h, asignatura.creditos, asignatura.id_a], (err) => {
-        if (err) {
-            callback(err);
-        }
-        callback(null, {
+        if (err)
+            return callback(err);
+        return callback(null, {
             statusCode: 200,
             message: 'Profesor actualizado exitosamente',
             data: {
@@ -81,6 +79,7 @@ const delite = (id_a, callback) => {
     db_1.db.query(queryString, [id_a], (err) => {
         if (err) {
             callback(err);
+            return;
         }
         callback(null, {
             statusCode: 200,
@@ -89,6 +88,7 @@ const delite = (id_a, callback) => {
                 id_a: id_a
             }
         });
+        return;
     });
 };
 exports.delite = delite;

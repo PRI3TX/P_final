@@ -9,11 +9,8 @@ export const create = (estudiante: Estudiante, callback: Function) => {
         queryString,
         [estudiante.cod_e, estudiante.nom_e, estudiante.dir_e, estudiante.tel_e, estudiante.fech_nac],
         (err) => {
-            if (err) { callback(err); }
+            if (err) return callback(err); 
  
-            //const insertId = (<OkPacket>result).insertId;
-            //callback(null, insertId);
-
             callback(null, {
                 statusCode: 201,
                 message: 'Estudiante creado exitosamente',
@@ -35,14 +32,14 @@ export const getAll = (callback: Function) => {
 
         const estudiantes = result as Estudiante[];
 
-  callback(null, {
-    statusCode: 200,
-    message: 'Estudiantes obtenidos exitosamente',
-    data: estudiantes
-  });
-});
+    callback(null, {
+        statusCode: 200,
+        message: 'Estudiantes obtenidos exitosamente',
+        data: estudiantes
+    });
+    });
 
-}
+    }
 export const getOne = (cod_e: number, callback: Function) => {
     const queryString = 'SELECT * FROM estudiantes WHERE cod_e = ?';
  
@@ -79,8 +76,7 @@ export const update = (estudiante: Estudiante, callback: Function) => {
         queryString,
         [estudiante.nom_e, estudiante.dir_e, estudiante.tel_e, estudiante.fech_nac, estudiante.cod_e],
         (err) => {
-            if (err) { 
-                callback(err);}
+            if (err) return callback(err);
  
             callback(null, {
                 statusCode: 200,
@@ -92,15 +88,14 @@ export const update = (estudiante: Estudiante, callback: Function) => {
         }
     );
 }
-export const delite = (cod_e: number, callback: Function) => {
+export const delite_e = (cod_e: number, callback: Function) => {
     const queryString = 'DELETE FROM estudiantes WHERE cod_e = ?';
  
     db.query(
         queryString,
         [cod_e],
         (err) => {
-            if (err) { callback(err); }
- 
+            if (err) return callback(err);
             callback(null, {
                 statusCode: 200,
                 message: 'Estudiante eliminado exitosamente',

@@ -49,7 +49,7 @@ estudianteRouter.put('/', async (req: Request, res: Response) => {
 estudianteRouter.delete('/:cod_e', (req: Request, res: Response) => {
   const cod_e = parseInt(req.params.cod_e);
 
-  estudianteController.delite(cod_e, (err: Error, result: any) => {
+  estudianteController.delite_e(cod_e, (err: Error, result: any) => {
     if (err) {
       return res.status(500).json({ message: err.message });
     }

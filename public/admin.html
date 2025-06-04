@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Administrador</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenido, Administrador</h1>
+    <p>Aquí puedes gestionar estudiantes, profesores y asignaturas.</p>
+    <form id="form-estudiante">
+      <input type="number" id="cod_e" placeholder="Código" required />
+      <input type="text" id="nom_e" placeholder="Nombre" required />
+      <input type="text" id="dir_e" placeholder="Dirección" required />
+      <input type="number" id="tel_e" placeholder="Teléfono" required />
+      <input type="date" id="fech_nac" required />
+      <div class="botones">
+        <button type="button" onclick="crearEstudiante()">Crear</button>
+        <button type="button" onclick="actualizarEstudiante()">Actualizar</button>
+        <button type="button" onclick="eliminarEstudiante()">Eliminar</button>
+        <button type="button" onclick="verEstudiantes()">Ver Todos</button>
+         <div id="resultados"></div>
+      </div>
+    </form>
+  </div>
+    <button onclick="goBack()">Volver al inicio</button>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>

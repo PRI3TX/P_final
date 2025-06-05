@@ -4,11 +4,11 @@ import { OkPacket, RowDataPacket } from 'mysql2';
 import e from 'express';
 
 export const create = (asignatura: Asignatura, callback: Function) => {
-    const queryString = 'INSERT INTO asignaturas (id_a, nom_a, int_h, creditos) VALUES (?, ?, ?, ?)';
+    const queryString = 'INSERT INTO asignaturas (cod_a, nom_a, int_h, creditos) VALUES (?, ?, ?, ?)';
 
     db.query(
         queryString,
-        [asignatura.id_a, asignatura.nom_a, asignatura.int_h, asignatura.creditos],
+        [asignatura.cod_a, asignatura.nom_a, asignatura.int_h, asignatura.creditos],
         (err) => {
             if (err)return  callback(err);
 
@@ -19,7 +19,7 @@ export const create = (asignatura: Asignatura, callback: Function) => {
                 statusCode: 201,
                 message: 'Asignatura creada exitosamente',
                 data: {
-                    id_a: asignatura.id_a
+                    cod_a: asignatura.cod_a
                 }
             });
         }
@@ -45,12 +45,12 @@ export const getAll = (callback: Function) => {
     });
 }
 
-export const getOne = (id_a: number, callback: Function) => {
-    const queryString = 'SELECT * FROM asignaturas WHERE id_a = ?';    
+export const getOne = (cod_a: number, callback: Function) => {
+    const queryString = 'SELECT * FROM asignaturas WHERE cod_a = ?';    
 
     db.query(
         queryString,
-        [id_a],
+        [cod_a],
         (err, result) => {
             if (err) {
                 callback(err);
@@ -76,11 +76,11 @@ export const getOne = (id_a: number, callback: Function) => {
 }
 
 export const update = (asignatura: Asignatura, callback: Function) => {
-    const queryString = 'UPDATE asignaturas SET nom_a = ?, int_h = ?, creditos = ? WHERE id_a = ?';
+    const queryString = 'UPDATE asignaturas SET nom_a = ?, int_h = ?, creditos = ? WHERE cod_a = ?';
  
     db.query(
         queryString,
-        [asignatura.nom_a, asignatura.int_h, asignatura.creditos, asignatura.id_a],
+        [asignatura.nom_a, asignatura.int_h, asignatura.creditos, asignatura.cod_a],
         (err) => {
             if (err) return callback(err); 
  
@@ -88,7 +88,7 @@ export const update = (asignatura: Asignatura, callback: Function) => {
                 statusCode: 200,
                 message: 'Profesor actualizado exitosamente',
                 data: {
-                    id_a: asignatura.id_a
+                    cod_a: asignatura.cod_a
                 }
             });
             
@@ -97,12 +97,12 @@ export const update = (asignatura: Asignatura, callback: Function) => {
 }
 
 
-export const delite = (id_a: number, callback: Function) => {
-    const queryString = 'DELETE FROM asignaturas WHERE id_a = ?';
+export const delite = (cod_a: number, callback: Function) => {
+    const queryString = 'DELETE FROM asignaturas WHERE cod_a = ?';
 
     db.query(
         queryString,
-        [id_a],
+        [cod_a],
         (err) => {
             if (err) { callback(err); return; }
 
@@ -110,7 +110,7 @@ export const delite = (id_a: number, callback: Function) => {
                 statusCode: 200,
                 message: 'Asignatura eliminada exitosamente',
                 data: {
-                    id_a: id_a
+                    cod_a: cod_a
                 }
                 
             });

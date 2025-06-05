@@ -42,6 +42,8 @@ const bodyParser = __importStar(require("body-parser"));
 const estudianteRouter_1 = require("./src/routes/estudianteRouter");
 const profesorRouter_1 = require("./src/routes/profesorRouter");
 const asignaturaRouter_1 = require("./src/routes/asignaturaRouter");
+const imparteRouter_1 = require("./src/routes/imparteRouter");
+const inscribeRouter_1 = require("./src/routes/inscribeRouter");
 const db_1 = require("./db");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
@@ -57,6 +59,8 @@ app.get('/', (req, res) => {
 app.use("/estudiante", estudianteRouter_1.estudianteRouter);
 app.use("/profesor", profesorRouter_1.profesorRouter);
 app.use("/asignatura", asignaturaRouter_1.asignaturaRouter);
+app.use("/imparte", imparteRouter_1.imparteRouter);
+app.use('/inscribe', inscribeRouter_1.inscribeRouter);
 db_1.db.connect((err) => {
     if (err) {
         console.log('Database connection error');

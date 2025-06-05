@@ -4,14 +4,14 @@ import { OkPacket } from 'mysql2';
 
 export const create = (imparte: Imparte, callback: Function) => {
     // Verificar existencia de id_p en profesor
-    db.query('SELECT * FROM profesor WHERE id_p = ?', [imparte.id_p], (err, profResult) => {
+    db.query('SELECT * FROM profesores WHERE id_p = ?', [imparte.id_p], (err, profResult) => {
         if (err) return callback(err);
         if ((profResult as any[]).length === 0) {
             return callback({ message: 'Profesor no encontrado con id_p: ' + imparte.id_p });
         }
 
         // Verificar existencia de cod_a en asignatura
-        db.query('SELECT * FROM asignatura WHERE cod_a = ?', [imparte.cod_a], (err, asigResult) => {
+        db.query('SELECT * FROM asignaturas WHERE cod_a = ?', [imparte.cod_a], (err, asigResult) => {
             if (err) return callback(err);
             if ((asigResult as any[]).length === 0) {
                 return callback({ message: 'Asignatura no encontrada con cod_a: ' + imparte.cod_a });

@@ -1,7 +1,6 @@
 export interface Imparte {
-    id_p: number;
-    cod_a: number;
-    grupo: number;
-    horario: string;
-    
+  id_p: number;
+  cod_a: string;
+  grupo: string;
+  horario: string;
 }

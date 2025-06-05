@@ -87,7 +87,7 @@ estudianteRouter.put('/', (req, res) => __awaiter(void 0, void 0, void 0, functi
 }));
 estudianteRouter.delete('/:cod_e', (req, res) => {
     const cod_e = parseInt(req.params.cod_e);
-    estudianteController.delite(cod_e, (err, result) => {
+    estudianteController.delite_e(cod_e, (err, result) => {
         if (err) {
             return res.status(500).json({ message: err.message });
         }

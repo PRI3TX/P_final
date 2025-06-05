@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delite = exports.update = exports.getOne = exports.getAll = exports.create = void 0;
+exports.delite_e = exports.update = exports.getOne = exports.getAll = exports.create = void 0;
 const db_1 = require("../../db");
 const create = (estudiante, callback) => {
     const queryString = 'INSERT INTO estudiantes (cod_e, nom_e, dir_e, tel_e, fech_nac) VALUES (?, ?, ?, ?, ?)';
@@ -72,7 +72,7 @@ const update = (estudiante, callback) => {
     });
 };
 exports.update = update;
-const delite = (cod_e, callback) => {
+const delite_e = (cod_e, callback) => {
     const queryString = 'DELETE FROM estudiantes WHERE cod_e = ?';
     db_1.db.query(queryString, [cod_e], (err) => {
         if (err)
@@ -86,4 +86,4 @@ const delite = (cod_e, callback) => {
         });
     });
 };
-exports.delite = delite;
+exports.delite_e = delite_e;

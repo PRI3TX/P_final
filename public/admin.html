@@ -46,6 +46,61 @@
         </div>
         </form>
     </div>
+    <div class="container">
+        <h2>Asignaturas</h2>
+        <form id="form-asignatura">
+        <input type="number" id="cod_a" placeholder="Código" required />
+        <input type="text" id="nom_a" placeholder="Nombre" required />
+        <input type="number" id="int_h" placeholder="Horas" required />
+        <input type="number" id="creditos" placeholder="Cr&eacute;ditos" required />
+        <div class="botones">    
+            <button type="button" onclick="crearAsignatura()">Crear</button>
+            <button type="button" onclick="actualizarAsignatura()">Actualizar</button>
+            <button type="button" onclick="eliminarAsignatura()">Eliminar</button>
+            <button type="button" onclick="verAsignaturas()">Ver Todos</button>
+            <button type="button" onclick="buscarAsignaturas()">Buscar</button>
+            <div id="resultados_a"></div>
+        </div>
+        </form>
+    
+  </div>
+  <div class="container">
+        <h2>clases de Profesores</h2>
+        <form id="form-classTeachrer">
+        <input type="number" id="id_a" placeholder="Código Profesor" required />
+        <input type="number" id="cod_a" placeholder="Código Asignatura" required />
+        <input type="number" id="grupo" placeholder="Grupo" required />
+        <input type="string" id="horario" placeholder="Horario" required />
+        <div class="botones">    
+            <button type="button" onclick="crearImparte()">Crear</button>
+            <button type="button" onclick="actualizarImparte()">Actualizar</button>
+            <button type="button" onclick="eliminarImparte()">Eliminar</button>
+            <button type="button" onclick="verImparte()">Ver Todos</button>
+            <button type="button" onclick="buscarImparte()">Buscar</button>
+            <div id="resultados_a"></div>
+        </div>
+        </form>
+    
+  </div>
+  <div class="container">
+        <h2>Materias de Estudiantes</h2>
+        <form id="form-asignatura">
+        <input type="number" id="cod_a" placeholder="Código" required />
+        <input type="text" id="nom_a" placeholder="Nombre" required />
+        <input type="number" id="int_h" placeholder="Horas" required />
+        <input type="number" id="creditos" placeholder="Cr&eacute;ditos" required />
+        <div class="botones">    
+            <button type="button" onclick="crearInscribe()">Crear</button>
+            <button type="button" onclick="actualizarInscribe()">Actualizar</button>
+            <button type="button" onclick="eliminarInscribe()">Eliminar</button>
+            <button type="button" onclick="verInscribe()">Ver Todos</button>
+            <button type="button" onclick="buscarInscribe()">Buscar</button>
+            <div id="resultados_a"></div>
+        </div>
+        </form>
+    
+  </div>
+  <div class="container">
     <button onclick="goBack()">Volver al inicio</button>
   </div>
   <script src="admin.js"></script>

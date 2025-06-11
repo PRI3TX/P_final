@@ -57,7 +57,10 @@ function actualizarEstudiante() {
     tel_e,
     fech_nac
   };
-
+if (isNaN(cod_e)) {
+    document.getElementById('resultados').innerText = 'Código de estudiante inválido.';
+    return;
+  }
   // Enviar al backend
   fetch('http://127.0.0.1:3000/estudiante', {
     method: 'PUT', // Seguimos usando PUT porque es una actualización
@@ -263,6 +266,10 @@ function actualizarProfesor() {
     tel_p: tel_p,
     profesion: profesion
   };
+  if (isNaN(id_p)) {
+    document.getElementById('resultados_p').innerText = 'Código de profesor inválido.';
+    return;
+  }
   fetch(`http://127.0.0.1:3000/profesor`, {
     method: 'PUT',
     headers: {
@@ -287,7 +294,7 @@ function eliminarProfesor(){
   const id_p = parseInt(document.getElementById('id_p').value);
 
   if (isNaN(id_p)) {
-    document.getElementById('resultados_p').innerText = 'Código de estudiante inválido.';
+    document.getElementById('resultados_p').innerText = 'Código de profesor inválido.';
     return;
   }
 
@@ -297,9 +304,9 @@ function eliminarProfesor(){
   .then(async response => {
     const data = await response.json();
     if (!response.ok) {
-      document.getElementById('resultados_p').innerText = `Error: ${data.message || 'No se pudo eliminar el estudiante'}`;
+      document.getElementById('resultados_p').innerText = `Error: ${data.message || 'No se pudo eliminar el profesor'}`;
     } else {
-      document.getElementById('resultados_p').innerText = 'Estudiante eliminado correctamente';
+      document.getElementById('resultados_p').innerText = 'profesor eliminado correctamente';
     }
   })
   .catch(error => {
@@ -307,20 +314,34 @@ function eliminarProfesor(){
   });
 }
 function verProfesores() {
-  fetch('http://127.0.0.1:3000/profesor',{
+  fetch('http://127.0.0.1:3000/profesor/',{
     method: 'GET'
   })
-  .then(response => response.json())
-  .then(profesores => {
+   .then(async response => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      document.getElementById('resultados_p').innerText = `Error: ${data.message || 'No se pudieron obtener los profesores'}`;
+      return;
+    }
+
+    const profesores = data.data;
+
+    if (!Array.isArray(profesores)) {
+      document.getElementById('resultados_p').innerText = 'Error: La respuesta no contiene una lista de estudiantes.';
+      return;
+    }
+
+    // Crear tabla
     let tabla = `
-      <table>
+      <table border="1" cellpadding="5" cellspacing="0">
         <thead>
           <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Dirección</th>
-            <th>Tel&eacute;fono</th>
-            <th>Profesi&oacute;n</th>
+            <th>Teléfono</th>
+            <th>Profesión</th>
           </tr>
         </thead>
         <tbody>
@@ -346,7 +367,310 @@ function verProfesores() {
     document.getElementById('resultados_p').innerText = `Error de red: ${error.message}`;
   });
 }
+function buscarProfesores() {
+  const id_p = parseInt(document.getElementById('id_p').value);
+  fetch(`http://127.0.0.1:3000/profesor/${id_p}`, {
+    method: 'GET'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_p').innerText = `Error: ${data.message || 'No se pudieron obtener los profesores'}`;
+      return;
+    }
 
+    const profesor = data.data;
+
+    if (!Array.isArray(profesor)) {
+      document.getElementById('resultados_p').innerText = 'Error: La respuesta no contiene una lista de estudiantes.';
+      return;
+    }
+
+    // Crear tabla
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Profesión</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    profesor.forEach(profesor => {
+      tabla += `
+        <tr>
+          <td>${profesor.id_p}</td>
+          <td>${profesor.nom_p}</td>
+          <td>${profesor.dir_p}</td>
+          <td>${profesor.tel_p}</td>
+          <td>${profesor.profesion}</td>
+        </tr>
+      `;
+    });
+    tabla += `
+        </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_p').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_p').innerText = `Error de red: ${error.message}`;
+  });
+}
+// funciones para administrar asignaturas
+function crearAsignatura() {
+  // Obtener los valores del formulario
+  const cod_a = parseInt(document.getElementById('cod_a').value);
+  const nom_a = document.getElementById('nom_a').value;
+  const int_h = parseInt(document.getElementById('int_h').value);
+  const creditos = parseInt(document.getElementById('creditos').value);
+// armar asignatura
+  const asignatura = {
+    cod_a: cod_a,
+    nom_a: nom_a,
+    int_h: int_h,
+    creditos: creditos
+  };
+  // Enviar la asignatura al servidor
+  
+ fetch('http://127.0.0.1:3000/asignatura', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(asignatura)
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_a').innerText = `Error: ${data.message || 'No se pudo crear la asignatura'}`;
+      return;
+    }
+    document.getElementById('resultados_a').innerText = 'asignatura creado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
+  });
+}
+function actualizarAsignatura() {
+  // Obtener los valores del formulario
+  const cod_a = parseInt(document.getElementById('cod_a').value);
+  const nom_a = document.getElementById('nom_a').value;
+  const int_h = parseInt(document.getElementById('int_h').value);
+  const creditos = parseInt(document.getElementById('creditos').value);
+// armar asignatura
+  const asignatura = {
+    cod_a: cod_a,
+    nom_a: nom_a,
+    int_h: int_h,
+    creditos: creditos
+  };
+  if (isNaN(cod_a)) {
+    document.getElementById('resultados_a').innerText = 'Código de asignatura inválido.';
+    return;
+  }
+  // Enviar la asignatura al servidor
+  fetch('http://127.0.0.1:3000/asignatura', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(asignatura)
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_a').innerText = `Error: ${data.message || 'No se pudo actualizar la asignatura'}`;
+      return;
+    }
+    document.getElementById('resultados_a').innerText = 'asignatura actualizado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
+  })
+}
+function eliminarAsignatura() {
+  // Obtener los valores del formulario
+  const cod_a = parseInt(document.getElementById('cod_a').value);
+
+  if (isNaN(cod_a)) {
+    document.getElementById('resultados_a').innerText = 'Código de asignatura inválido.';
+    return;
+  }
+
+  fetch(`http://127.0.0.1:3000/asignatura/${cod_a}`, {
+    method: 'DELETE'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_a').innerText = `Error: ${data.message || 'No se pudo eliminar la asignatura'}`;
+    } else {
+      document.getElementById('resultados_a').innerText = 'asignatura eliminado correctamente';
+    }
+  })
+  .catch(error => {
+    document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
+  });
+}
+function verAsignaturas() {
+  fetch('http://127.0.0.1:3000/asignatura/',{
+    method: 'GET'
+  })
+   .then(async response => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      document.getElementById('resultados_a').innerText = `Error: ${data.message || 'No se pudieron obtener las asignaturas'}`;
+      return;
+    }
+
+    const asignaturas = data.data;
+
+    if (!Array.isArray(asignaturas)) {
+      document.getElementById('resultados_a').innerText = 'Error: La respuesta no contiene una lista de asignaturas.';
+      return;
+    }
+
+    // Crear tabla
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Horas</th>
+            <th>Créditos</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    asignaturas.forEach(asignatura => {
+      tabla += `
+        <tr>
+          <td>${asignatura.cod_a}</td>
+          <td>${asignatura.nom_a}</td>
+          <td>${asignatura.int_h}</td>
+          <td>${asignatura.creditos}</td>
+        </tr>
+      `;
+    });
+    tabla += `
+        </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_a').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
+  });
+}
+// funciones para administrar asignaturas
+function crearImparte(){
+const id_p = parseInt(document.getElementById('id_p').value);
+const cod_a = parseInt(document.getElementById('cod_a').value);
+const grupo = parseInt(document.getElementById('grupo').value);
+const horario = document.getElementById('horario').value;
+// armar imparte
+const imparte = {
+  id_p: id_p,
+  cod_a: cod_a,
+  grupo: grupo,
+  horario: horario
+};
+if (isNaN(id_p)) {
+  document.getElementById('resultados_i').innerText = 'Código de profesor inválido.';
+  return;
+}
+if (isNaN(cod_a)) {
+  document.getElementById('resultados_i').innerText = 'Código de asignatura inválido.';
+  return;
+}
+if (isNaN(grupo)) {
+  document.getElementById('resultados_i').innerText = 'Grupo inválido.';
+  return;
+}
+if (horario === '') {
+  document.getElementById('resultados_i').innerText = 'Horario inválido.';
+  return;
+}
+// Enviar la asignatura al servidor
+fetch('http://127.0.0.1:3000/imparte', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(imparte)
+})
+.then(async response => {
+  const data = await response.json();
+  if (!response.ok) {
+    document.getElementById('resultados_i').innerText = `Error: ${data.message || 'No se pudo crear el registro en imparte'}`;
+    return;
+  }
+  document.getElementById('resultados_i').innerText = 'Registro en imparte creado exitosamente';
+})
+.catch(error => {
+  document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
+});
+}
+function verImparte() {
+  fetch('http://127.0.0.1:3000/imparte/',{
+    method: 'GET'
+  })
+   .then(async response => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      document.getElementById('resultados_i').innerText = `Error: ${data.message || 'No se pudieron obtener los registros en imparte'}`;
+      return;
+    }
+
+    const imparte = data.data;
+
+    if (!Array.isArray(imparte)) {
+      document.getElementById('resultados_i').innerText = 'Error: La respuesta no contiene una lista de imparte.';
+      return;
+    }
+
+    // Crear tabla
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código Profesor</th>
+            <th>Código Asignatura</th>
+            <th>Grupo</th>
+            <th>Horario</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    imparte.forEach(imparte => {
+      tabla += `
+        <tr>
+          <td>${imparte.id_p}</td>
+          <td>${imparte.cod_a}</td>
+          <td>${imparte.grupo}</td>
+          <td>${imparte.horario}</td>
+        </tr>
+      `;
+    });
+    tabla += `
+        </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_i').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
+  });
+}
 function goBack() {
  window.location.href = '/';
 }

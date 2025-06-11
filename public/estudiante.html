@@ -11,6 +11,26 @@
     <p>Aquí podrás consultar tus asignaturas y calificaciones.</p>
     <button onclick="goBack()">Volver al inicio</button>
   </div>
+  <div class="container">
+  <h1>Materias Disponibles</h1>
+  <div id="materias">
+</div></div>
+ <div class="container">
+  <h2>Inscribir Materia</h2>
+  <form id="formInscribir">
+    Código Estudiante: <input type="number" id="cod_e" required><br>
+    Código Asignatura: <input type="text" id="cod_a" required><br>
+    ID Profesor: <input type="number" id="id_p" required><br>
+    Grupo: <input type="text" id="grupo" required><br>
+    <button type="submit">Inscribirme</button>
+  </form>
+  </div>
+<div class="container">
+  <h2>Materias Inscritas</h2>
+  <input type="number" id="cod_e_consulta" placeholder="Código estudiante">
+  <button onclick="consultarInscritas()">Consultar</button>
+  <div id="inscritas"></div>
+  </div>
   <script src="estudiante.js"></script>
 </body>
 </html>

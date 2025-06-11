@@ -6,6 +6,7 @@ import { profesorRouter } from './src/routes/profesorRouter';
 import { asignaturaRouter } from './src/routes/asignaturaRouter';
 import { imparteRouter } from './src/routes/imparteRouter';
 import { inscribeRouter } from './src/routes/inscribeRouter';
+import {inscripcionEstudianteRouter} from './src/routes/inscripcionEstudianteRouter';
 import { db } from './db';
 import cors from 'cors';
 import path from 'path';
@@ -32,6 +33,7 @@ app.use("/profesor", profesorRouter);
 app.use("/asignatura", asignaturaRouter);
 app.use("/imparte", imparteRouter);
 app.use('/inscribe',inscribeRouter);
+app.use('/api/inscripcion', inscripcionEstudianteRouter);
  
 db.connect((err) => {
     if (err) {

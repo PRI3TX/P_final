@@ -20,3 +20,44 @@ function validarContraseña(event) {
 
   return false;
 }
+function validarContraseñaProfe(event) {
+  event.preventDefault(); // Evita el envío automático
+
+  const contraseñaIngresada = parseInt(document.getElementById("contraseña_p").value);
+
+  fetch(`http://127.0.0.1:3000/profesor/${contraseñaIngresada}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Código no válido");
+      }
+      return res.json();
+    })
+    .then(data => {
+      // Si se encuentra, redirige
+      irA("profesor.html");
+    })
+    .catch(error => {
+      alert("Contraseña incorrecta. Intenta nuevamente.");
+    });
+}
+function validarContraseñaAlumno(event) {
+  event.preventDefault(); // Evita el envío automático
+
+  const contraseñaIngresada = parseInt(document.getElementById("contraseña_a").value);
+
+  fetch(`http://127.0.0.1:3000/estudiante/${contraseñaIngresada}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Código no válido");
+      }
+      return res.json();
+    })
+    .then(data => {
+      // Si se encuentra, redirige
+      irA("estudiante.html");
+    })
+    .catch(error => {
+      alert("Contraseña incorrecta. Intenta nuevamente.");
+    });
+}
+

@@ -6,103 +6,115 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Bienvenido, Administrador</h1>
-        <p>Aquí puedes gestionar estudiantes, profesores y asignaturas.</p>
-    </div>
-    <div class="container">
-        <h2>Estudiantes</h2>
-        <form id="form-estudiante">
-        <input type="number" id="cod_e" placeholder="Código" required />
-        <input type="text" id="nom_e" placeholder="Nombre" required />
-        <input type="text" id="dir_e" placeholder="Dirección" required />
-        <input type="number" id="tel_e" placeholder="Teléfono" required />
-        <input type="date" id="fech_nac" required />
-        <div class="botones">
-            <button type="button" onclick="crearEstudiante()">Crear</button>
-            <button type="button" onclick="actualizarEstudiante()">Actualizar</button>
-            <button type="button" onclick="eliminarEstudiante()">Eliminar</button>
-            <button type="button" onclick="verEstudiantes()">Ver Todos</button>
-            <button type="button" onclick="buscarEstudiante()">Buscar</button>
-            <div id="resultados"></div>
-        </div>
-        </form>
-    </div>
-    <div class="container">
-        <h2>Profesores</h2>  
-        <form id="form-profesor">
-        <input type="number" id="id_p" placeholder="Código" required />
-        <input type="text" id="nom_p" placeholder="Nombre" required />
-        <input type="text" id="dir_p" placeholder="Dirección" required />
-        <input type="number" id="tel_p" placeholder="Teléfono" required />
-        <input type="text" id="profesion" placeholder="Profesi&oacute;n" required />
-        <div class="botones">
-            <button type="button" onclick="crearProfesor()">Crear</button>
-            <button type="button" onclick="actualizarProfesor()">Actualizar</button>
-            <button type="button" onclick="eliminarProfesor()">Eliminar</button>
-            <button type="button" onclick="verProfesores()">Ver Todos</button>
-            <button type="button" onclick="buscarProfesores()">Buscar</button>
-            <div id="resultados_p"></div>
-        </div>
-        </form>
-    </div>
-    <div class="container">
-        <h2>Asignaturas</h2>
-        <form id="form-asignatura">
-        <input type="number" id="cod_a" placeholder="Código" required />
-        <input type="text" id="nom_a" placeholder="Nombre" required />
-        <input type="number" id="int_h" placeholder="Horas" required />
-        <input type="number" id="creditos" placeholder="Cr&eacute;ditos" required />
-        <div class="botones">    
-            <button type="button" onclick="crearAsignatura()">Crear</button>
-            <button type="button" onclick="actualizarAsignatura()">Actualizar</button>
-            <button type="button" onclick="eliminarAsignatura()">Eliminar</button>
-            <button type="button" onclick="verAsignaturas()">Ver Todos</button>
-            <button type="button" onclick="buscarAsignaturas()">Buscar</button>
-            <div id="resultados_a"></div>
-        </div>
-        </form>
-    
-  </div>
   <div class="container">
-        <h2>clases de Profesores</h2>
-        <form id="form-classTeachrer">
-        <input type="number" id="id_a" placeholder="Código Profesor" required />
-        <input type="number" id="cod_a" placeholder="Código Asignatura" required />
-        <input type="number" id="grupo" placeholder="Grupo" required />
-        <input type="string" id="horario" placeholder="Horario" required />
-        <div class="botones">    
-            <button type="button" onclick="crearImparte()">Crear</button>
-            <button type="button" onclick="actualizarImparte()">Actualizar</button>
-            <button type="button" onclick="eliminarImparte()">Eliminar</button>
-            <button type="button" onclick="verImparte()">Ver Todos</button>
-            <button type="button" onclick="buscarImparte()">Buscar</button>
-            <div id="resultados_a"></div>
-        </div>
-        </form>
-    
+    <h1>Bienvenido, Administrador</h1>
+    <p>Aquí puedes gestionar estudiantes, profesores y asignaturas.</p>
   </div>
+<!-- Estudiantes -->
   <div class="container">
-        <h2>Materias de Estudiantes</h2>
-        <form id="form-asignatura">
-        <input type="number" id="cod_a" placeholder="Código" required />
-        <input type="text" id="nom_a" placeholder="Nombre" required />
-        <input type="number" id="int_h" placeholder="Horas" required />
-        <input type="number" id="creditos" placeholder="Cr&eacute;ditos" required />
-        <div class="botones">    
-            <button type="button" onclick="crearInscribe()">Crear</button>
-            <button type="button" onclick="actualizarInscribe()">Actualizar</button>
-            <button type="button" onclick="eliminarInscribe()">Eliminar</button>
-            <button type="button" onclick="verInscribe()">Ver Todos</button>
-            <button type="button" onclick="buscarInscribe()">Buscar</button>
-            <div id="resultados_a"></div>
-        </div>
-        </form>
-    
+    <h2>Estudiantes</h2>
+    <form id="form-estudiante">
+      <input type="number" id="cod_e" placeholder="Código" required />
+      <input type="text" id="nom_e" placeholder="Nombre" required />
+      <input type="text" id="dir_e" placeholder="Dirección" required />
+      <input type="number" id="tel_e" placeholder="Teléfono" required />
+      <input type="date" id="fech_nac" required />
+      <div class="botones">
+        <button type="button" onclick="crearEstudiante()">Crear</button>
+        <button type="button" onclick="actualizarEstudiante()">Actualizar</button>
+        <button type="button" onclick="eliminarEstudiante()">Eliminar</button>
+        <button type="button" onclick="verEstudiantes()">Ver Todos</button>
+        <button type="button" onclick="buscarEstudiante()">Buscar</button>
+      </div>
+      <div id="resultados_estudiantes"></div>
+    </form>
   </div>
+
+  <!-- Profesores -->
+  <div class="container">
+    <h2>Profesores</h2>  
+    <form id="form-profesor">
+      <input type="number" id="id_p" placeholder="Código" required />
+      <input type="text" id="nom_p" placeholder="Nombre" required />
+      <input type="text" id="dir_p" placeholder="Dirección" required />
+      <input type="number" id="tel_p" placeholder="Teléfono" required />
+      <input type="text" id="profesion" placeholder="Profesión" required />
+      <div class="botones">
+        <button type="button" onclick="crearProfesor()">Crear</button>
+        <button type="button" onclick="actualizarProfesor()">Actualizar</button>
+        <button type="button" onclick="eliminarProfesor()">Eliminar</button>
+        <button type="button" onclick="verProfesores()">Ver Todos</button>
+        <button type="button" onclick="buscarProfesores()">Buscar</button>
+      </div>
+      <div id="resultados_profesores"></div>
+    </form>
+  </div>
+
+  <!-- Asignaturas -->
+  <div class="container">
+    <h2>Asignaturas</h2>
+    <form id="form-asignatura">
+      <input type="number" id="cod_a" placeholder="Código" required />
+      <input type="text" id="nom_a" placeholder="Nombre" required />
+      <input type="number" id="int_h" placeholder="Horas" required />
+      <input type="number" id="creditos" placeholder="Créditos" required />
+      <div class="botones">    
+        <button type="button" onclick="crearAsignatura()">Crear</button>
+        <button type="button" onclick="actualizarAsignatura()">Actualizar</button>
+        <button type="button" onclick="eliminarAsignatura()">Eliminar</button>
+        <button type="button" onclick="verAsignaturas()">Ver Todos</button>
+        <button type="button" onclick="buscarAsignaturas()">Buscar</button>
+      </div>
+      <div id="resultados_asignaturas"></div>
+    </form>
+  </div>
+
+  <!-- Clases de Profesores -->
+  <div class="container">
+    <h2>Clases de Profesores</h2>
+    <form id="form-imparte">
+      <input type="number" id="id_p_imparte" placeholder="Código Profesor" required />
+      <input type="number" id="cod_a_imparte" placeholder="Código Asignatura" required />
+      <input type="number" id="grupo_imparte" placeholder="Grupo" required />
+      <input type="text" id="horario_imparte" placeholder="Horario" required />
+      <div class="botones">    
+        <button type="button" onclick="crearImparte()">Crear</button>
+        <button type="button" onclick="actualizarImparte()">Actualizar</button>
+        <button type="button" onclick="eliminarImparte()">Eliminar</button>
+        <button type="button" onclick="verImparte()">Ver Todos</button>
+        <button type="button" onclick="buscarImparte()">Buscar</button>
+      </div>
+      <div id="resultados_imparte"></div>
+    </form>
+  </div>
+
+  <!-- Materias de Estudiantes -->
+  <div class="container">
+    <h2>Materias de Estudiantes</h2>
+    <form id="form-inscribe">
+      <input type="number" id="cod_e_inscribe" placeholder="Código Estudiante" required />
+      <input type="number" id="cod_a_inscribe" placeholder="Código Asignatura" required />
+      <input type="number" id="id_p_inscribe" placeholder="Código Profesor" required />
+      <input type="number" id="grupo_inscribe" placeholder="Grupo" required />
+      <input type="number" id="n1" placeholder="Nota 1" required />
+      <input type="number" id="n2" placeholder="Nota 2" required />
+      <input type="number" id="n3" placeholder="Nota 3" required />
+      <div class="botones">    
+        <button type="button" onclick="crearInscribe()">Crear</button>
+        <button type="button" onclick="actualizarInscribe()">Actualizar</button>
+        <button type="button" onclick="eliminarInscribe()">Eliminar</button>
+        <button type="button" onclick="verInscribe()">Ver Todos</button>
+        <button type="button" onclick="buscarInscribe()">Buscar</button>
+      </div>
+      <div id="resultados_inscribe"></div>
+    </form>
+  </div>
+
+  <!-- Botón de volver -->
   <div class="container">
     <button onclick="goBack()">Volver al inicio</button>
   </div>
+
   <script src="admin.js"></script>
 </body>
 </html>

@@ -674,3 +674,5 @@ function verImparte() {
 function goBack() {
  window.location.href = '/';
 }
+window.scrollTo(0, 100); // hace scroll hacia abajo automáticamente
+

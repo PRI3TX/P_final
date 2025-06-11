@@ -570,12 +570,58 @@ function verAsignaturas() {
     document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
   });
 }
+function buscarAsignaturas() {
+  const cod_a = parseInt(document.getElementById('cod_a').value);
+  fetch(`http://127.0.0.1:3000/asignatura/${cod_a}`,{
+    method: 'GET'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_a').innerText = `Error: ${data.message || 'No se pudo obtener el registro en asignatura'}`;
+      return;
+    }
+    const asignatura = data.data;
+    if (!arrayBuffer.isArray(asignatura)) {
+      document.getElementById('resultados_a').innerText = 'Error: La respuesta no contiene una lista de asignatura.';
+      return;
+    }
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Horas</th>
+            <th>Créditos</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    tabla += `
+        <tr>
+          <td>${asignatura.cod_a}</td>
+          <td>${asignatura.nom_a}</td>
+          <td>${asignatura.int_h}</td>
+          <td>${asignatura.creditos}</td>
+        </tr>
+      `;
+    tabla += `
+        </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_a').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_a').innerText = `Error de red: ${error.message}`;
+  });
+}
 // funciones para administrar asignaturas
 function crearImparte(){
-const id_p = parseInt(document.getElementById('id_p').value);
-const cod_a = parseInt(document.getElementById('cod_a').value);
-const grupo = parseInt(document.getElementById('grupo').value);
-const horario = document.getElementById('horario').value;
+const id_p = parseInt(document.getElementById('id_p_i').value);
+const cod_a = parseInt(document.getElementById('cod_a_i').value);
+const grupo = parseInt(document.getElementById('grupo_i').value);
+const horario = document.getElementById('horario_i').value;
 // armar imparte
 const imparte = {
   id_p: id_p,
@@ -671,6 +717,301 @@ function verImparte() {
     document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
   });
 }
+function buscarImparte() {
+  fetch('http://127.0.0.1:3000/estudiante/',{
+    method: 'GET'
+  })
+   .then(async response => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      document.getElementById('resultados_i').innerText = `Error: ${data.message || 'No se pudieron obtener los registros en imparte'}`;
+      return;
+    }
+
+    const imparte = data.data;
+
+    if (!Array.isArray(imparte)) {
+      document.getElementById('resultados_i').innerText = 'Error: La respuesta no contiene una lista de imparte.';
+      return;
+    }
+
+    // Crear tabla
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código Profesor</th>
+            <th>Código Asignatura</th>
+            <th>Grupo</th>
+            <th>Horario</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    imparte.forEach(imparte => {
+      tabla += `
+        <tr>
+          <td>${imparte.id_p}</td>
+          <td>${imparte.cod_a}</td>
+          <td>${imparte.grupo}</td>
+          <td>${imparte.horario}</td>
+        </tr>
+      `;
+    });
+    tabla += `
+        </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_i').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
+  })
+} 
+function actualizarImparte() {
+  const cod_a = parseInt(document.getElementById('cod_a_i').value);
+  const id_p = parseInt(document.getElementById('id_p_i').value);
+  const grupo = parseInt(document.getElementById('grupo_i').value);
+  const horario = document.getElementById('horario_i').value;
+  const imparte = {
+    id_p: id_p,
+    cod_a: cod_a,
+    grupo: grupo,
+    horario: horario
+  };
+  fetch(`http://127.0.0.1:3000/imparte/${cod_a}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(imparte)
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_i').innerText = `Error: ${data.message || 'No se pudo actualizar el registro en imparte'}`;
+      return;
+    }
+    document.getElementById('resultados_i').innerText = 'Registro en imparte actualizado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
+  });
+}
+function eliminarImparte() {
+  const cod_a = parseInt(document.getElementById('cod_a_i').value);
+  fetch(`http://127.0.0.1:3000/imparte/${cod_a}`, {
+    method: 'DELETE'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_i').innerText = `Error: ${data.message || 'No se pudo eliminar el registro en imparte'}`;
+      return;
+    }
+    document.getElementById('resultados_i').innerText = 'Registro en imparte eliminado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados_i').innerText = `Error de red: ${error.message}`;
+  });
+}
+// Funciones para la tabla de inscribe
+function crearInscribe() {
+  const cod_a = parseInt(document.getElementById('cod_a_in').value);
+  const cod_e = parseInt(document.getElementById('cod_e_in').value);
+  const id_p = parseInt(document.getElementById('id_p_in').value);
+  const grupo = parseInt(document.getElementById('grupo_in').value);
+  const n1 = parseInt(document.getElementById('n1').value);
+  const n2 = parseInt(document.getElementById('n2').value);
+  const n3 = parseInt(document.getElementById('n3').value);
+  const inscribe = {
+    cod_a: cod_a,
+    cod_e: cod_e,
+    id_p: id_p,
+    grupo: grupo,
+    n1: n1,
+    n2: n2,
+    n3: n3
+  };
+  fetch('http://127.0.0.1:3000/inscribe', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(inscribe)
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados').innerText = `Error: ${data.message || 'No se pudo crear el registro en inscribe'}`;
+      return;
+    }
+    document.getElementById('resultados').innerText = 'Registro en inscribe creado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados').innerText = `Error de red: ${error.message}`;
+  });
+}
+function actualizarInscribe() {
+  const cod_a = parseInt(document.getElementById('cod_a_in').value);
+  const cod_e = parseInt(document.getElementById('cod_e_in').value);
+  const id_p = parseInt(document.getElementById('id_p_in').value);
+  const grupo = parseInt(document.getElementById('grupo_in').value);
+  const n1 = parseInt(document.getElementById('n1').value);
+  const n2 = parseInt(document.getElementById('n2').value);
+  const n3 = parseInt(document.getElementById('n3').value);
+  const inscribe = {
+    cod_a: cod_a,
+    cod_e: cod_e,
+    id_p: id_p,
+    grupo: grupo,
+    n1: n1,
+    n2: n2,
+    n3: n3
+  };
+  fetch(`http://127.0.0.1:3000/inscribe/${cod_a}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(inscribe)
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados').innerText = `Error: ${data.message || 'No se pudo actualizar el registro en inscribe'}`;
+      return;
+    }
+    document.getElementById('resultados').innerText = 'Registro en inscribe actualizado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados').innerText = `Error de red: ${error.message}`;
+  });
+}
+function eliminarInscribe() {
+  const cod_e = parseInt(document.getElementById('cod_e_in').value);
+  fetch(`http://127.0.0.1:3000/inscribe/${cod_e}`, {
+    method: 'DELETE'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_in').innerText = `Error: ${data.message || 'No se pudo eliminar el registro en inscribe'}`;
+      return;
+    }
+    document.getElementById('resultados_in').innerText = 'Registro en inscribe eliminado exitosamente';
+  })
+  .catch(error => {
+    document.getElementById('resultados_in').innerText = `Error de red: ${error.message}`;
+  });
+}
+function verInscribe() {
+  fetch('http://127.0.0.1:3000/inscribe',{
+    method: 'GET'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_in').innerText = `Error: ${data.message || 'No se pudo obtener los registros en inscribe'}`;
+      return;
+    }
+    const inscribe = data.data;
+    if (!arrayBuffer.isArray(inscribe)) {
+      document.getElementById('resultados_in').innerText = 'Error: La respuesta no contiene una lista de inscribe.';
+      return;
+    }
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código Asignatura</th>
+            <th>Código Estudiante</th>
+            <th>Id Profesor</th>
+            <th>Grupo</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Nota 3</th>
+          </tr>
+        `;
+ 
+  imparte.forEach(imparte => {
+    tabla += `
+      <tr>
+        <td>${imparte.cod_a}</td>
+        <td>${imparte.cod_e}</td>
+        <td>${imparte.id_p}</td>
+        <td>${imparte.grupo}</td>
+        <td>${imparte.n1}</td>
+        <td>${imparte.n2}</td>
+        <td>${imparte.n3}</td>
+      </tr>
+    `;
+  })
+  tabla += `
+      </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_in').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_in').innerText = `Error de red: ${error.message}`;
+  });     
+}
+function buscarInscribe() {
+  const cod_a = parseInt(document.getElementById('cod_a_in').value);
+  fetch(`http://127.0.0.1:3000/inscribe/${cod_a}`,{
+    method: 'GET'
+  })
+  .then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+      document.getElementById('resultados_in').innerText = `Error: ${data.message || 'No se pudo obtener los registros en inscribe'}`;
+      return;
+    }
+    const inscribe = data.data;
+    if (!arrayBuffer.isArray(inscribe)) {
+      document.getElementById('resultados_in').innerText = 'Error: La respuesta no contiene una lista de inscribe.';
+      return;
+    }
+    let tabla = `
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Código Asignatura</th>
+            <th>Código Estudiante</th>
+            <th>Id Profesor</th>
+            <th>Grupo</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Nota 3</th>
+          </tr>
+        `;
+ 
+  imparte.forEach(imparte => {
+    tabla += `
+      <tr>
+        <td>${imparte.cod_a}</td>
+        <td>${imparte.cod_e}</td>
+        <td>${imparte.id_p}</td>
+        <td>${imparte.grupo}</td>
+        <td>${imparte.n1}</td>
+        <td>${imparte.n2}</td>
+        <td>${imparte.n3}</td>
+      </tr>
+    `;
+  })
+  tabla += `
+      </tbody>
+      </table>
+    `;
+    document.getElementById('resultados_in').innerHTML = tabla;
+  })
+  .catch(error => {
+    document.getElementById('resultados_in').innerText = `Error de red: ${error.message}`;
+  });
+}
+
 function goBack() {
  window.location.href = '/';
 }

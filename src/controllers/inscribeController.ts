@@ -1,3 +1,4 @@
+import { stat } from 'fs';
 import { db } from '../../db';
 import { Inscribe } from '../models/inscribeModel';
 import { OkPacket } from 'mysql2';
@@ -67,6 +68,14 @@ export const getAll = (callback: Function) => {
     db.query(queryString, (err, result) => {
         if (err) return callback(err);
         const inscribe = result as Inscribe[];
+        if (inscribe.length === 0) {
+            callback(null, {
+                statusCode: 404,
+                message: 'No se encontraron registros de inscribe',
+                data: null
+            });
+            return;
+        }
         callback(null, {
             statusCode: 200,
             message: 'Registros de inscribe obtenidos exitosamente',
@@ -97,7 +106,7 @@ export const getOne = (cod_e: number, callback: Function) => {
 };
 
 export const update = (inscribe: Inscribe, callback: Function) => {
-    const queryString = 'UPDATE inscribe SET n1 = ?, n2 = ?, n3 = ? WHERE cod_e = ? AND cod_a = ? AND id_p = ? AND grupo = ?';
+    const queryString = 'UPDATE inscribe SET  n1 = ?, n2 = ?, n3 = ? WHERE cod_e = ? AND cod_a = ? AND id_p = ? AND grupo = ?';
     db.query(
         queryString,
         [inscribe.n1, inscribe.n2, inscribe.n3, inscribe.cod_e, inscribe.cod_a, inscribe.id_p, inscribe.grupo],
@@ -105,7 +114,9 @@ export const update = (inscribe: Inscribe, callback: Function) => {
             if (err) return callback(err);
             const okPacket = result as OkPacket;
             if (okPacket.affectedRows === 0) {
-                return callback({ message: 'No se encontró el registro para actualizar' });
+                return callback({ 
+                    statusCode: 404,
+                    message: 'No se encontró el registro para actualizar' });
             }
             callback(null, {
                 statusCode: 200,

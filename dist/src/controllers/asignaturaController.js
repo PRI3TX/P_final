@@ -27,6 +27,14 @@ const getAll = (callback) => {
             return;
         }
         const asignaturas = result;
+        if (asignaturas.length === 0) {
+            callback(null, {
+                statusCode: 404,
+                message: 'No se encontraron asignaturas',
+                data: null
+            });
+            return;
+        }
         return callback(null, {
             statusCode: 200,
             message: 'Asignaturas obtenidas exitosamente',

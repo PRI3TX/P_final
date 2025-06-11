@@ -26,7 +26,7 @@
         <button type="button" onclick="verEstudiantes()">Ver Todos</button>
         <button type="button" onclick="buscarEstudiante()">Buscar</button>
       </div>
-      <div id="resultados_estudiantes"></div>
+      <div id="resultados"></div>
     </form>
   </div>
 
@@ -46,7 +46,7 @@
         <button type="button" onclick="verProfesores()">Ver Todos</button>
         <button type="button" onclick="buscarProfesores()">Buscar</button>
       </div>
-      <div id="resultados_profesores"></div>
+      <div id="resultados_p"></div>
     </form>
   </div>
 
@@ -65,7 +65,7 @@
         <button type="button" onclick="verAsignaturas()">Ver Todos</button>
         <button type="button" onclick="buscarAsignaturas()">Buscar</button>
       </div>
-      <div id="resultados_asignaturas"></div>
+      <div id="resultados_a"></div>
     </form>
   </div>
 
@@ -73,10 +73,10 @@
   <div class="container">
     <h2>Clases de Profesores</h2>
     <form id="form-imparte">
-      <input type="number" id="id_p_imparte" placeholder="Código Profesor" required />
-      <input type="number" id="cod_a_imparte" placeholder="Código Asignatura" required />
-      <input type="number" id="grupo_imparte" placeholder="Grupo" required />
-      <input type="text" id="horario_imparte" placeholder="Horario" required />
+      <input type="number" id="id_p_i" placeholder="Código Profesor" required />
+      <input type="number" id="cod_a_i" placeholder="Código Asignatura" required />
+      <input type="number" id="grupo_i" placeholder="Grupo" required />
+      <input type="text" id="horario_i" placeholder="Horario" required />
       <div class="botones">    
         <button type="button" onclick="crearImparte()">Crear</button>
         <button type="button" onclick="actualizarImparte()">Actualizar</button>
@@ -84,7 +84,7 @@
         <button type="button" onclick="verImparte()">Ver Todos</button>
         <button type="button" onclick="buscarImparte()">Buscar</button>
       </div>
-      <div id="resultados_imparte"></div>
+      <div id="resultados_i"></div>
     </form>
   </div>
 
@@ -92,10 +92,10 @@
   <div class="container">
     <h2>Materias de Estudiantes</h2>
     <form id="form-inscribe">
-      <input type="number" id="cod_e_inscribe" placeholder="Código Estudiante" required />
-      <input type="number" id="cod_a_inscribe" placeholder="Código Asignatura" required />
-      <input type="number" id="id_p_inscribe" placeholder="Código Profesor" required />
-      <input type="number" id="grupo_inscribe" placeholder="Grupo" required />
+      <input type="number" id="cod_e_in" placeholder="Código Estudiante" required />
+      <input type="number" id="cod_a_in" placeholder="Código Asignatura" required />
+      <input type="number" id="id_p_in" placeholder="Código Profesor" required />
+      <input type="number" id="grupo_in" placeholder="Grupo" required />
       <input type="number" id="n1" placeholder="Nota 1" required />
       <input type="number" id="n2" placeholder="Nota 2" required />
       <input type="number" id="n3" placeholder="Nota 3" required />
@@ -106,7 +106,7 @@
         <button type="button" onclick="verInscribe()">Ver Todos</button>
         <button type="button" onclick="buscarInscribe()">Buscar</button>
       </div>
-      <div id="resultados_inscribe"></div>
+      <div id="resultados_in"></div>
     </form>
   </div>
 

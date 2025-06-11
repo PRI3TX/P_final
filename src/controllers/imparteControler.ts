@@ -45,6 +45,14 @@ export const getAll = (callback: Function) => {
             return;
         }
         const imparte = result as Imparte[];
+        if (imparte.length === 0) {
+            callback(null, {
+                statusCode: 404,
+                message: 'No se encontraron registros de imparte',
+                data: null
+            });
+            return;
+        }
         callback(null, {
             statusCode: 200,
             message: 'Registros de imparte obtenidos exitosamente',
@@ -59,7 +67,16 @@ export const getOne = (cod_a: number, callback: Function) => {
             callback(err);
             return;
         }
+    
         const imparte = result as Imparte[];
+        if (imparte.length === 0) {
+            callback(null, {
+                statusCode: 404,
+                message: 'No se encontraron registros de imparte',
+                data: null
+            });
+            return;
+        }
         callback(null, {
             statusCode: 200,
             message: 'Registros de imparte obtenidos exitosamente',

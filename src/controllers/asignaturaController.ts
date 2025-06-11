@@ -36,7 +36,14 @@ export const getAll = (callback: Function) => {
         }
 
         const asignaturas = result as Asignatura[];
-
+        if (asignaturas.length === 0) {
+            callback(null, {
+                statusCode: 404,
+                message: 'No se encontraron asignaturas',
+                data: null
+            });
+            return;
+        }
         return callback(null, {
             statusCode: 200,
             message: 'Asignaturas obtenidas exitosamente',

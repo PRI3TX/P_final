@@ -16,11 +16,6 @@ body {
   padding-top: 20px; /* Espacio desde arriba para evitar que se corte */
 }
 
-/* Si no usas un <header>, puedes eliminar esto */
-header {
-  /* Removido position: fixed; para evitar superposición */
-}
-
 .container {
   text-align: center;
   background-color: white;

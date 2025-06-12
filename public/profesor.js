@@ -18,7 +18,7 @@ document.getElementById('formRegistrarMateria').addEventListener('submit', e => 
 // Consultar estudiantes inscritos a materias del profesor
 function consultarEstudiantes() {
   const id_p = parseInt(document.getElementById('id_p_consulta').value);
-  fetch(`/http://127.0.0.1:3000api/profesor/estudiantes/${id_p}`)
+  fetch(`http://127.0.0.1:3000/api/profesor/estudiantes/${id_p}`)
     .then(res => res.json())
     .then(data => {
       const contenedor = document.getElementById('estudiantes');

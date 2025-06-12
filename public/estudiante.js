@@ -4,7 +4,10 @@ fetch('/api/inscripcion/materias')
   .then(data => {
     const contenedor = document.getElementById('materias');
     contenedor.innerHTML = data.map(m =>
-      `<p><strong>${m.nom_a}</strong> - Profesor: ${m.nom_p} - Grupo: ${m.grupo} - Horario: ${m.horario}</p>`
+      `<p>
+        <strong>${m.cod_a} - ${m.nom_a}</strong><br>
+        Profesor: ${m.nom_p} - Grupo: ${m.grupo} - Horario: ${m.horario}
+      </p>`
     ).join('');
   });
 

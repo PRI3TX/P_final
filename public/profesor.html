@@ -11,6 +11,39 @@
     <p>Desde aquí puedes consultar y calificar a tus estudiantes.</p>
     <button onclick="goBack()">Volver al inicio</button>
   </div>
+  <div class="container">
+  <h1>Materias Disponibles</h1>
+  <div id="ver_materias">
+</div></div>
+  <div class="container">
+    <h2>Registrar materia a dictar</h2>
+<form id="formRegistrarMateria">
+  <input type="number" id="id_p" placeholder="ID Profesor" required />
+  <input type="text" id="cod_a" placeholder="Código Asignatura" required />
+  <input type="text" id="grupo" placeholder="Grupo" required />
+  <input type="text" id="horario" placeholder="Horario" required />
+  <button type="submit">Registrar materia</button>
+</form>
+  </div>
+  <div class="container"> 
+<h2>Consultar estudiantes inscritos</h2>
+<input type="number" id="id_p_consulta" placeholder="ID Profesor" />
+<button onclick="consultarEstudiantes()">Consultar</button>
+<div id="estudiantes"></div>
+  </div>
+<div class="container">
+  <h2>Editar notas del estudiante</h2>
+<form id="formEditarNotas">
+  <input type="number" id="cod_e" placeholder="Código Estudiante" required />
+  <input type="text" id="cod_a_nota" placeholder="Código Asignatura" required />
+  <input type="number" id="id_p_nota" placeholder="ID Profesor" required />
+  <input type="text" id="grupo_nota" placeholder="Grupo" required />
+  <input type="number" id="n1" placeholder="Nota 1" required />
+  <input type="number" id="n2" placeholder="Nota 2" required />
+  <input type="number" id="n3" placeholder="Nota 3" required />
+  <button type="submit">Guardar notas</button>
+</form>
+</div>
   <script src="profesor.js"></script>
 </body>
 </html>

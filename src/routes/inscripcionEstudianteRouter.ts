@@ -10,7 +10,7 @@ inscripcionEstudianteRouter.post('/inscribir', (req: Request, res: Response) => 
     const newInscribe: Inscribe = req.body;
     inscribeController.create(newInscribe, (err: Error, result: any) => {
         if (err) return res.status(500).json({ message: err.message });
-        res.status(result.statusCode).json(result);
+        res.status(200).json(result); // ← aquí
     });
 });
 
@@ -18,7 +18,7 @@ inscripcionEstudianteRouter.post('/inscribir', (req: Request, res: Response) => 
 inscripcionEstudianteRouter.get('/materias', (req: Request, res: Response) => {
     inscripcionEstudianteController.getMateriasDisponibles((err: Error, result: any) => {
         if (err) return res.status(500).json({ message: err.message });
-        res.status(result.statusCode).json(result);
+        res.status(200).json(result); // ← aquí
     });
 });
 
@@ -27,9 +27,8 @@ inscripcionEstudianteRouter.get('/inscritas/:cod_e', (req: Request, res: Respons
     const cod_e = parseInt(req.params.cod_e);
     inscripcionEstudianteController.getMateriasInscritas(cod_e, (err: Error, result: any) => {
         if (err) return res.status(500).json({ message: err.message });
-        res.status(result.statusCode).json(result);
+        res.status(200).json(result); // ← aquí
     });
 });
 
 export { inscripcionEstudianteRouter };
-

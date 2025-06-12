@@ -917,7 +917,7 @@ function verInscribe() {
       return;
     }
     const inscribe = data.data;
-    if (!arrayBuffer.isArray(inscribe)) {
+    if (!Array.isArray(inscribe)) {
       document.getElementById('resultados_in').innerText = 'Error: La respuesta no contiene una lista de inscribe.';
       return;
     }
@@ -935,16 +935,16 @@ function verInscribe() {
           </tr>
         `;
  
-  imparte.forEach(imparte => {
+  inscribe.forEach(inscribe => {
     tabla += `
       <tr>
-        <td>${imparte.cod_a}</td>
-        <td>${imparte.cod_e}</td>
-        <td>${imparte.id_p}</td>
-        <td>${imparte.grupo}</td>
-        <td>${imparte.n1}</td>
-        <td>${imparte.n2}</td>
-        <td>${imparte.n3}</td>
+        <td>${inscribe.cod_a}</td>
+        <td>${inscribe.cod_e}</td>
+        <td>${inscribe.id_p}</td>
+        <td>${inscribe.grupo}</td>
+        <td>${inscribe.n1}</td>
+        <td>${inscribe.n2}</td>
+        <td>${inscribe.n3}</td>
       </tr>
     `;
   })
@@ -1016,4 +1016,3 @@ function goBack() {
  window.location.href = '/';
 }
 window.scrollTo(0, 100); // hace scroll hacia abajo automáticamente
-

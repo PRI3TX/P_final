@@ -44,6 +44,8 @@ const profesorRouter_1 = require("./src/routes/profesorRouter");
 const asignaturaRouter_1 = require("./src/routes/asignaturaRouter");
 const imparteRouter_1 = require("./src/routes/imparteRouter");
 const inscribeRouter_1 = require("./src/routes/inscribeRouter");
+const inscripcionEstudianteRouter_1 = require("./src/routes/inscripcionEstudianteRouter");
+const registroProfesorRouter_1 = require("./src/routes/registroProfesorRouter");
 const db_1 = require("./db");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
@@ -61,6 +63,8 @@ app.use("/profesor", profesorRouter_1.profesorRouter);
 app.use("/asignatura", asignaturaRouter_1.asignaturaRouter);
 app.use("/imparte", imparteRouter_1.imparteRouter);
 app.use('/inscribe', inscribeRouter_1.inscribeRouter);
+app.use('/api/inscripcion', inscripcionEstudianteRouter_1.inscripcionEstudianteRouter);
+app.use('/api/profesor', registroProfesorRouter_1.registroProfesorRouter);
 db_1.db.connect((err) => {
     if (err) {
         console.log('Database connection error');
